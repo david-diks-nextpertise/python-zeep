@@ -73,6 +73,18 @@ corresponding `AsyncTransport()` (this is the default transport for the
 
 .. versionadded:: 4.0.0
 
+If you need to add parameters to your requests, you will need to provide two implementations of the same client.
+
+.. code-block:: python
+
+    wsdl_client = httpx.Client()
+    service_client = httpx.AsyncClient()
+    transport = zeep.AsyncTransport(client=service_client, wsdl_client=wsdl_client)
+
+    client = zeep.AsyncClient("http://localhost:8000/?wsdl")
+
+    response = await client.service.myoperation()
+
 
 Strict mode
 ~~~~~~~~~~~
